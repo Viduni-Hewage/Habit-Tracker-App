@@ -1,9 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, Text, Image, SafeAreaView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from '../styles/Splash.styles';
 
-const SplashScreen = () => {
+type SplashScreenProps = {
+    navigation: any;
+  };
+
+const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate('Welcome');
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
     <SafeAreaView style={styles.splashSafeContainer}>
       <View style={styles.splashContainer}>
