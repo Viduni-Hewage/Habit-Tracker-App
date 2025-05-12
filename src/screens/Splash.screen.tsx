@@ -5,17 +5,24 @@ import styles from '../styles/Splash.styles';
 
 const SplashScreen = () => {
   return (
-    <SafeAreaView style={styles.safeContainer}>
-      <LinearGradient colors={['#2D8ED7', '#693FDC']} style={styles.gradient}>
-        <View style={styles.container}>
-          <Image
-            source={require('../assets/images/logo-Big.png')}
-            style={styles.image}
-            resizeMode="contain"
-          />
-          <Text style={styles.text}>HABITZ</Text>
-        </View>
-      </LinearGradient>
+    <SafeAreaView style={styles.splashSafeContainer}>
+      <View style={styles.splashContainer}>
+        <LinearGradient
+          colors={['#82BAE4', '#A48CE7']}
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 1}}
+          style={styles.splashGradient}
+        >
+          <View style={styles.splashContentContainer}>
+            <Image
+              source={require('../assets/images/logo-Big.png')}
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
+            <Text style={styles.splashText}>HABITZ</Text>
+          </View>
+        </LinearGradient>
+      </View>
     </SafeAreaView>
   );
 };
