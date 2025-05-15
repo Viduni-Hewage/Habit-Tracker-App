@@ -6,9 +6,13 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import styles from '../styles//Welcome.styles'; 
+import styles from '../styles//Welcome.styles';
 
-const WelcomeScreen = () => {
+type WelcomeScreenProps = {
+  navigation: any;
+};
+
+const WelcomeScreen: React.FC<WelcomeScreenProps>  = ({navigation}) => {
   return (
     <ImageBackground
       source={require('../assets/images/welcomeBg.png')}
@@ -36,8 +40,9 @@ const WelcomeScreen = () => {
         </View>
 
         <View style={styles.welcomeButtonContainer}>
-          <TouchableOpacity style={styles.getStartedButton}>
-            <Text style={styles.welcomeButtonText}>GET STARTED →</Text>
+          <TouchableOpacity style={styles.getStartedButton}
+          onPress={() => navigation.navigate('Signin')}>
+            <Text style={styles.welcomeButtonText}>GET STARTED   →</Text>
           </TouchableOpacity>
           <View style={styles.welcomeDivider} />
         </View>
