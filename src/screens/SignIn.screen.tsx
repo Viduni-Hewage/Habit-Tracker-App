@@ -12,7 +12,7 @@ import styles from '../styles/SignIn.styles';
 
 const SignInScreen = ({ navigation }: any) => {
     const handleNavigateToSignup = () => {
-        navigation.navigate('SignUp');
+        navigation.navigate('Signup');
     };
     const handleSignin = () => {
         navigation.navigate('Home');
@@ -27,7 +27,7 @@ const SignInScreen = ({ navigation }: any) => {
                 source={require('../assets/images/logo-black.png')}
                 style={styles.logo}
                 resizeMode="contain"
-            /> 
+            />
         </View>
         <Text style={styles.subtitle1}>Welcome Back !</Text>
         <Text style={styles.subtitle2}>Create your timing!</Text>
@@ -39,13 +39,13 @@ const SignInScreen = ({ navigation }: any) => {
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        <Text style={styles.label}>Password:</Text> 
+        <Text style={styles.label}>Password:</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter your password"
           secureTextEntry
         />
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.buttonContainer}
           onPress={handleSignin}
         >
