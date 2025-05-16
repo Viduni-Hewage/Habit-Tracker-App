@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import styles from '../styles//Welcome.styles';
+import styles from '../styles/Welcome.styles';
 
 type WelcomeScreenProps = {
   navigation: any;
