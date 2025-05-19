@@ -182,12 +182,13 @@ modalBackground: {
 },
 
 popupContainer: {
-  width: 300,
+  width: wp('70%'),
+  height: hp('40%'),
   backgroundColor: '#fff',
   borderRadius: 20,
-  padding: 20,
   alignItems: 'center',
   position: 'relative',
+  justifyContent: 'center'
 },
 
 celebrationGif: {
@@ -196,12 +197,13 @@ celebrationGif: {
   marginBottom: 10,
 },
 
-popupText: {
-  fontSize: 18,
+popupImage: {
+  width:170,
+  height: 170,
   fontWeight: 'bold',
   color: '#333',
   textAlign: 'center',
-  marginTop: 10,
+  marginBottom: 300,
 },
 
 closeButton: {

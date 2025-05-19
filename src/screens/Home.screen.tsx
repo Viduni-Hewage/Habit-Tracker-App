@@ -30,7 +30,7 @@ const HomeScreen = ({ navigation }: any) => {
   const [tasks, setTasks] = useState<any[]>([]);
   const [weekDays, setWeekDays] = useState<WeekDay[]>([]);
   const today = moment().startOf('day');
-  const [isCompleted, setIsCompleted] = useState(false);
+  // const [completed, setCompleted] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
 
   React.useEffect(() => {
@@ -53,7 +53,11 @@ const HomeScreen = ({ navigation }: any) => {
         try {
           const storedTasks = await AsyncStorage.getItem('habits');
           if (storedTasks) {
-            setTasks(JSON.parse(storedTasks));
+                const parsedTasks = JSON.parse(storedTasks).map((task: any) => ({
+            ...task,
+            completed: task.completed ?? false,
+          }));
+          setTasks(parsedTasks);
           }
         } catch (error) {
           console.error('Error loading habits:', error);
@@ -62,6 +66,15 @@ const HomeScreen = ({ navigation }: any) => {
       loadTasks();
     }, [])
   );
+
+  // const handleCheck = () => {
+  //   const newValue = !completed;
+  //   setCompleted(newValue);
+
+  //   if (newValue) {
+  //     setShowCelebration(true); 
+  //   }
+  // };
 
   const deleteTask = async (index: number) => {
     try {
@@ -135,10 +148,14 @@ const HomeScreen = ({ navigation }: any) => {
               <View style={styles.complete}>
                 <Text style={styles.completeLabel}>Completed:</Text>
                 <CheckBox
-                  value={isCompleted}
+                  value={task.completed}
                   onValueChange={(newValue) => {
-                    setIsCompleted(newValue);
+                    const updatedTasks = [...tasks];
+                    updatedTasks[index].completed = newValue;
+                    setTasks(updatedTasks);
+                    AsyncStorage.setItem('habits', JSON.stringify(updatedTasks));
                     if (newValue) setShowCelebration(true);
+                    setTimeout(() => setShowCelebration(false), 15000);
                   }}
                 />
               </View>
@@ -187,7 +204,10 @@ const HomeScreen = ({ navigation }: any) => {
               source={require('../assets/animations/congratulations.gif')}
               style={styles.celebrationGif}
             />
-            <Text style={styles.popupText}>🎉 Task Completed! 🎉</Text>
+            <Image
+                source={require('../assets/images/happy.png')}
+                style={styles.popupImage}
+              />
           </View>
         </View>
       </Modal>
