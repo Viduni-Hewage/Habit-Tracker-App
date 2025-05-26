@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -23,8 +23,6 @@ type WeekDay = {
   fullDate: moment.Moment;
   isToday: boolean;
 };
-
-
 
 const HomeScreen = ({ navigation, route }: any) => {
   const [isMenuVisible, setMenuVisible] = useState(false);
@@ -79,19 +77,22 @@ const HomeScreen = ({ navigation, route }: any) => {
      setWeekDays(days);
    }, [today]);
 
-  React.useEffect(() => {
-    const loadHabits = async () => {
-      try {
-        const storedHabits = await AsyncStorage.getItem('habits');
-        if (storedHabits) {
-          setHabits(JSON.parse(storedHabits));
+  useFocusEffect(
+    useCallback(() => {
+      const loadHabits = async () => {
+        try {
+          const stored = await AsyncStorage.getItem('habits');
+          if (stored) {
+            setHabits(JSON.parse(stored));
+          }
+        } catch (e) {
+          console.error('Failed to load habits:', e);
         }
-      } catch (error) {
-        console.error('Failed to load habits:', error);
-      }
-  };
-    loadHabits();
-  }, []);
+      };
+
+      loadHabits();
+    }, [])
+  );
 
   const toggleHabitCompleted = async (habitId: string) => {
     const todayStr = moment().format('YYYY-MM-DD');
@@ -217,7 +218,7 @@ const HomeScreen = ({ navigation, route }: any) => {
           getFilteredHabits().map((habit) => (
             <LinearGradient
               key={habit.id}
-              colors={['#9D74EF', '#FFC6A4']}
+              colors={['#9D74EF', '#A48CE7']}
               style={styles.habitCard}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
