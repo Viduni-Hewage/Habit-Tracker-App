@@ -24,7 +24,7 @@ type RootStackParamList = {
   Home: { filter?: 'today' | 'all' | 'completed' } | undefined;
   Profile: undefined;
   Settings: undefined;
-  Login: undefined;
+  Signin: undefined;
   Progress: undefined;
 };
 
@@ -89,7 +89,7 @@ const MenuPopup = ({ onClose, visible }: MenuPopupProps) => {
 
   const handleSignOut = async () => {
     await AsyncStorage.removeItem('isLoggedIn');
-    navigation.replace('Login');
+    navigation.navigate('Signin');
     onClose();
   };
 
