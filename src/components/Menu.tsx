@@ -21,10 +21,11 @@ interface MenuPopupProps {
 }
 
 type RootStackParamList = {
-  Home: undefined;
+  Home: { filter?: 'today' | 'all' | 'completed' } | undefined;
   Profile: undefined;
   Settings: undefined;
   Login: undefined;
+  Progress: undefined;
 };
 
 type MenuPopupNavigationProp = StackNavigationProp<RootStackParamList>;
@@ -76,6 +77,15 @@ const MenuPopup = ({ onClose, visible }: MenuPopupProps) => {
       onClose();
     }, 200);
   };
+
+  const handleFilterNavigation = (filter: 'today' | 'all' | 'completed') => {
+    setSelectedItem(`${filter}Habits`);
+    setTimeout(() => {
+      navigation.navigate('Home', { filter });
+      onClose();
+    }, 200);
+  };
+
 
   const handleSignOut = async () => {
     await AsyncStorage.removeItem('isLoggedIn');
@@ -146,7 +156,7 @@ const MenuPopup = ({ onClose, visible }: MenuPopupProps) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => handleNavigation('allHabits')}
+          onPress={() => handleFilterNavigation('all')}
           style={[
             styles.item,
             selectedItem === 'allHabits' && styles.activeItem,
@@ -161,7 +171,7 @@ const MenuPopup = ({ onClose, visible }: MenuPopupProps) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => handleNavigation('completedHabits')}
+          onPress={() => handleFilterNavigation('completed')}
           style={[
             styles.item,
             selectedItem === 'completedHabits' && styles.activeItem,

@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //import LinearGradient from 'react-native-linear-gradient';
 import moment from 'moment';
 import CheckBox from '@react-native-community/checkbox';
+import { useFocusEffect } from '@react-navigation/native';
 
 type WeekDay = {
   day: string;
@@ -22,12 +23,21 @@ type WeekDay = {
   isToday: boolean;
 };
 
-const HomeScreen = ({ navigation }: any) => {
+const HomeScreen = ({ navigation, route }: any) => {
   const [isMenuVisible, setMenuVisible] = useState(false);
   const [weekDays, setWeekDays] = useState<WeekDay[]>([]);
   const today = moment().startOf('day');
   const [selectedFilter, setSelectedFilter] = useState<'today' | 'all' | 'completed'>('today');
   const [habits, setHabits] = useState<any[]>([]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (route.params?.filter) {
+        setSelectedFilter(route.params.filter);
+        navigation.setParams({ filter: undefined });
+      }
+    }, [route.params?.filter, navigation])
+  );
 
   const getFilteredHabits = () => {
     const todayStr = moment().format('YYYY-MM-DD');
@@ -81,7 +91,6 @@ const HomeScreen = ({ navigation }: any) => {
     loadHabits();
   }, []);
 
-
   const toggleHabitCompleted = async (habitId: string) => {
     const todayStr = moment().format('YYYY-MM-DD');
 
@@ -109,13 +118,24 @@ const HomeScreen = ({ navigation }: any) => {
     }
   };
 
+  // Dynamic title based on selected filter
+  const getScreenTitle = () => {
+    switch (selectedFilter) {
+      case 'all':
+        return 'ALL HABITS';
+      case 'completed':
+        return 'COMPLETED HABITS';
+      default:
+        return 'TODAY';
+    }
+  };
 
   return (
     <View style={styles.container}>
       <CustomHeader canGoBack={false} onMenuPress={() => setMenuVisible(true)} />
 
       <View style={styles.centerBox}>
-        <Text style={styles.sectionTitle}>TODAY</Text>
+        <Text style={styles.sectionTitle}>{getScreenTitle()}</Text>
         <View style={styles.dateBox}>
           <FlatList
             horizontal
@@ -194,9 +214,6 @@ const HomeScreen = ({ navigation }: any) => {
           ))
         )}
       </ScrollView>
-
-
-
 
       <View style={styles.bottomContainer}>
         <View style={styles.bottomSquare} />
