@@ -36,35 +36,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginBottom: hp('2%'),
   },
-  taskBox: {
-    padding: wp('2%'),
-    paddingLeft: wp('4%'),
-    marginBottom: hp('2%'),
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 10,
-  },
-  taskTitle: {
-    fontWeight: 'bold',
-    fontSize: 17,
-    marginBottom: 4,
-    color: 'white',
-  },
-  description: {
-    fontSize: 15,
-    marginBottom: 4,
-    color: 'white',
-  },
-  complete: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginBottom: 4,
-    color: 'white',
-  },
-  completeLabel: {
-  fontSize: 16,
-  marginRight: 8,
-},
   underline: {
     height: 1,
     backgroundColor: 'white',
@@ -72,30 +43,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 7,
     alignSelf: 'center',
-  },
-  checkAndTrashContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  trashIconContainer: {
-    padding: 5,
-  },
-  trashIcon: {
-    width: 18,
-    height: 18,
-    tintColor: '#fff',
-  },
-  taskTitleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  edit:{
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginRight: 5,
   },
   bottomContainer: {
   position: 'absolute',
@@ -174,51 +121,54 @@ selectedDayText: {
 selectedDateText: {
   color: 'white',
 },
-modalBackground: {
-  flex: 1,
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+filterContainer: {
+  marginTop: 20,
+  flexDirection: 'row',
   justifyContent: 'center',
-  alignItems: 'center',
+  marginVertical: 10,
+  gap: wp('7%'),
 },
 
-popupContainer: {
-  width: wp('70%'),
-  height: hp('40%'),
-  backgroundColor: '#fff',
-  borderRadius: 20,
-  alignItems: 'center',
-  position: 'relative',
-  justifyContent: 'center'
+filterText: {
+  fontSize: 16,
+  color: '#555',
 },
-
-celebrationGif: {
-  width: 200,
-  height: 150,
-  marginBottom: 10,
-},
-
-popupImage: {
-  width:170,
-  height: 170,
+selectedFilterText: {
+  color: '#9D74EF',
   fontWeight: 'bold',
-  color: '#333',
+},
+
+separator: {
+  marginHorizontal: 8,
+  fontSize: 16,
+  color: '#999',
+},
+contentContainer: {
+  paddingBottom: 100,
+},
+noHabitText:{
   textAlign: 'center',
-  marginBottom: 300,
+  marginTop: 20,
+  color: '#999',
 },
-
-closeButton: {
-  position: 'absolute',
-  top: 10,
-  right: 10,
-  padding: 5,
-  zIndex: 1,
+habitCard:{
+  marginHorizontal: 20,
+  marginBottom: 15,
+  padding: 15,
+  backgroundColor: '#F5F5F5',
+  borderRadius: 10,
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
 },
-
-closeIcon: {
-  width: 20,
-  height: 20,
+habitName:{
+  fontSize: 18,
+  fontWeight: 'bold',
 },
-
+habitFreq:{
+  fontSize: 14,
+  color: '#666',
+},
 
 });
 
