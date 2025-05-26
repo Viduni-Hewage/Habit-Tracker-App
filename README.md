@@ -9,7 +9,7 @@ All your progress is stored locally using **AsyncStorage**, making the app light
 
 ## 🎥 Demo & Design
 
-📹 **Demo Video**: [Watch Demo]()  
+📹 **Demo Video**: [Watch Demo](https://drive.google.com/file/d/1QbL3ESp1n2e9QQX2aAFZxB2Egt1w9vym/view?usp=sharing)  
 🎨 **Figma Design**: [Figma File](https://www.figma.com/design/L67TctXVFgDTcHuCTY3WxJ/Habit-Tracker---SE-2021-044?node-id=0-1&t=soAnfELHHMFik7pB-1)
 
 ---
