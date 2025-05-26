@@ -127,6 +127,7 @@ const SignUpScreen = ({ navigation }: any) => {
           placeholder={passwordError || 'Enter your password'}
           placeholderTextColor={passwordError ? 'red' : '#999'}
           value={password}
+          secureTextEntry={true}  
           onChangeText={text => {
             setPassword(text);
             setPasswordError('');
@@ -138,6 +139,7 @@ const SignUpScreen = ({ navigation }: any) => {
           placeholder={confirmPasswordError || 'Enter your password again'}
           placeholderTextColor={confirmPasswordError ? 'red' : '#999'}
           value={confirmPassword}
+          secureTextEntry={true}  
           onChangeText={text => {
             setConfirmPassword(text);
             setConfirmPasswordError('');

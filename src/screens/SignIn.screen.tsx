@@ -117,6 +117,7 @@ const SignInScreen = ({ navigation }: any) => {
           placeholder={passwordError || 'Enter your password'}
           placeholderTextColor={passwordError ? 'red' : '#999'}
           value={password}
+          secureTextEntry={true}  
           onChangeText={text => {
             setPassword(text);
             setPasswordError('');
