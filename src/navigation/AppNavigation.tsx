@@ -11,6 +11,7 @@ import CustomHeader from "../components/Header";
 import HomeScreen from "../screens/Home.screen";
 import AddHabitScreen from "../screens/AddHabit.screen";
 import EditHabitScreen from "../screens/EditHabit.screen";
+import ProgressScreen from "../screens/Progress.screen";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +27,8 @@ const AppNavigation = () => {
       <Stack.Screen name = "Ad3" component={Onboarding3Screen} options = {{headerShown: false}}/>
       <Stack.Screen name="Home" component={HomeScreen} options={{header: () => <CustomHeader canGoBack={false} />, headerShown: false}}/>
       <Stack.Screen name="Add" component={AddHabitScreen} options={{header: () => <CustomHeader canGoBack={false} />, headerShown: false}}/>
-      <Stack.Screen name="Edit" component={EditHabitScreen} options={{header: () => <CustomHeader canGoBack={false} />, headerShown: false}}/>      
+      <Stack.Screen name="Edit" component={EditHabitScreen} options={{header: () => <CustomHeader canGoBack={false} />, headerShown: false}}/>
+      <Stack.Screen name="Progress" component={ProgressScreen} options={{header: () => <CustomHeader canGoBack={false} />, headerShown: false}}/>      
     </Stack.Navigator>
   );
 };
