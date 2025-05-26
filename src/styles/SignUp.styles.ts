@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 33,
-    marginBottom: 15,
+    marginBottom: 0,
     textAlign: 'center',
     fontWeight: '600',
     marginTop: 0,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   subtitle2: {
     fontSize: 19,
-    marginBottom: 40,
+    marginBottom: 35,
     textAlign: 'center',
     fontWeight: '500',
   },
@@ -41,12 +41,14 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   input: {
-    height: 48,
-    backgroundColor: '#757575',
-    color:'#DDDCDC',
-    marginBottom: 20,
+    height: 44,
+    marginBottom: 15,
     paddingHorizontal: 12,
     borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    backgroundColor: '#fff',
   },
   buttonContainer: {
     backgroundColor: '#9D74EF',

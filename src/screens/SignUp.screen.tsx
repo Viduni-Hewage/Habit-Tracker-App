@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,12 +11,70 @@ import {
 import styles from '../styles/SignUp.styles';
 
 const SignUpScreen = ({ navigation }: any) => {
-    const handleNavigateToSignin = () => {
-        navigation.navigate('Signin');
-    };
-    const handleSignUp = () => {
-        navigation.navigate('Ad1');
-    };
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const validateInputs = () => {
+    let isValid = true;
+    const nameRegex = /^[A-Za-z\s]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    setNameError('');
+    setEmailError('');
+    setPasswordError('');
+    setConfirmPasswordError('');
+
+    if (!name) {
+      setNameError('* Name is required');
+      isValid = false;
+    } else if (!nameRegex.test(name)) {
+      setNameError('* Only letters allowed');
+      isValid = false;
+    }
+
+    if (!email) {
+      setEmailError('* Email is required');
+      isValid = false;
+    } else if (!emailRegex.test(email)) {
+      setEmailError('* Invalid email');
+      isValid = false;
+    }
+
+    if (!password) {
+      setPasswordError('* Password is required');
+      isValid = false;
+    } else if (password.length < 8) {
+      setPasswordError('* Password must be at least 8 characters');
+      isValid = false;
+    }
+
+    if (!confirmPassword) {
+      setConfirmPasswordError('* Confirm your password');
+      isValid = false;
+    } else if (confirmPassword !== password) {
+      setConfirmPasswordError('* Passwords do not match');
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
+  const handleNavigateToSignin = () => {
+    navigation.navigate('Signin');
+  };
+  const handleSignUp = () => {
+    if (validateInputs()) {
+      navigation.navigate('Ad1');
+    }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -32,24 +90,54 @@ const SignUpScreen = ({ navigation }: any) => {
         <Text style={styles.subtitle1}>Let's make an account!</Text>
         <Text style={styles.subtitle2}>Create your timing!</Text>
 
+        <Text style={styles.label}>Name:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder={nameError || 'Enter your name'}
+          placeholderTextColor={nameError ? 'red' : '#999'}
+          autoCapitalize="words"
+          value={name}
+          onChangeText={text => {
+            setName(text);
+            setNameError('');
+          }}
+        />
         <Text style={styles.label}>Email:</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your email"
+          placeholder={emailError || 'Enter your email'}
+          placeholderTextColor={emailError ? 'red' : '#999'}
           keyboardType="email-address"
           autoCapitalize="none"
+          value={email}
+          onChangeText={text => {
+            setEmail(text);
+            setEmailError('');
+          }}
         />
         <Text style={styles.label}>Password:</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your password"
+          placeholder={passwordError || 'Enter your password'}
+          placeholderTextColor={passwordError ? 'red' : '#999'}
           secureTextEntry
+          value={password}
+          onChangeText={text => {
+            setPassword(text);
+            setPasswordError('');
+          }}
         />
         <Text style={styles.label}>Confirm Password:</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your password again"
+          placeholder={confirmPasswordError || 'Enter your password again'}
+          placeholderTextColor={confirmPasswordError ? 'red' : '#999'}
           secureTextEntry
+          value={confirmPassword}
+          onChangeText={text => {
+            setConfirmPassword(text);
+            setConfirmPasswordError('');
+          }}
         />
         <TouchableOpacity
           style={styles.buttonContainer}
