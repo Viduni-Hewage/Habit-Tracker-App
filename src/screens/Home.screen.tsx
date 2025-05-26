@@ -28,7 +28,6 @@ type WeekDay = {
 const HomeScreen = ({ navigation, route }: any) => {
   const [isMenuVisible, setMenuVisible] = useState(false);
   const [weekDays, setWeekDays] = useState<WeekDay[]>([]);
-  const today = moment().startOf('day');
   const [selectedFilter, setSelectedFilter] = useState<'today' | 'all' | 'completed'>('today');
   const [habits, setHabits] = useState<any[]>([]);
   const [showGif, setShowGif] = useState(false);
@@ -66,18 +65,20 @@ const HomeScreen = ({ navigation, route }: any) => {
   };
 
    React.useEffect((): void => {
-     const days = [];
-     for (let i = 0; i < 5; i++) {
-       const date = moment().add(i, 'days');
-       days.push({
-         day: date.format('ddd'),
-         date: date.format('D'),
-         fullDate: date,
-         isToday: date.isSame(today, 'day'),
-       });
-     }
-     setWeekDays(days);
-   }, [today]);
+  const today = moment().startOf('day');
+  const days = [];
+  for (let i = 0; i < 5; i++) {
+    const date = moment().add(i, 'days');
+    days.push({
+      day: date.format('ddd'),
+      date: date.format('D'),
+      fullDate: date,
+      isToday: date.isSame(today, 'day'),
+    });
+  }
+  setWeekDays(days);
+}, []); 
+
 
   useFocusEffect(
     useCallback(() => {
@@ -110,7 +111,7 @@ const HomeScreen = ({ navigation, route }: any) => {
       } else {
         updatedDates = [...(habit.completedDates || []), todayStr];
         setShowGif(true);
-        setTimeout(() => setShowGif(false), 6000);
+        setTimeout(() => setShowGif(false), 5000);
       }
 
       return { ...habit, completedDates: updatedDates };
@@ -222,7 +223,7 @@ const HomeScreen = ({ navigation, route }: any) => {
           getFilteredHabits().map((habit) => (
             <LinearGradient
               key={habit.id}
-              colors={['#9D74EF', '#A48CE7']}
+              colors={['#5A9ACF', '#8C6ECF']}
               style={styles.habitCard}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}

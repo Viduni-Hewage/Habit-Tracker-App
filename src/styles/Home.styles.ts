@@ -145,6 +145,7 @@ separator: {
 },
 contentContainer: {
   marginBottom: 100,
+  marginTop: 20,
 },
 noHabitText:{
   textAlign: 'center',
