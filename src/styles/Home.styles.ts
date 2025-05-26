@@ -201,6 +201,21 @@ icon: {
 deleteBtn: {
   marginLeft: 15,
 },
+popupContainer: {
+  position: 'absolute',
+  top: '40%',
+  left: 0,
+  right: 0,
+  alignItems: 'center',
+  zIndex: 10,
+},
+
+popupImage: {
+  width: 150,
+  height: 150,
+  resizeMode: 'contain',
+},
+
 
 
 });

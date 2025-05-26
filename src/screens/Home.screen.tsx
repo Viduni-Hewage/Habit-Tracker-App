@@ -7,6 +7,7 @@ import {
   FlatList,
   Pressable,
   Image,
+  Modal,
 } from 'react-native';
 import styles from '../styles/Home.styles';
 import CustomHeader from '../components/Header';
@@ -30,6 +31,7 @@ const HomeScreen = ({ navigation, route }: any) => {
   const today = moment().startOf('day');
   const [selectedFilter, setSelectedFilter] = useState<'today' | 'all' | 'completed'>('today');
   const [habits, setHabits] = useState<any[]>([]);
+  const [showGif, setShowGif] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -107,6 +109,8 @@ const HomeScreen = ({ navigation, route }: any) => {
         updatedDates = habit.completedDates.filter((date: string) => date !== todayStr);
       } else {
         updatedDates = [...(habit.completedDates || []), todayStr];
+        setShowGif(true);
+        setTimeout(() => setShowGif(false), 6000);
       }
 
       return { ...habit, completedDates: updatedDates };
@@ -254,7 +258,6 @@ const HomeScreen = ({ navigation, route }: any) => {
           ))
         )}
       </ScrollView>
-
       <View style={styles.bottomContainer}>
         <View style={styles.bottomSquare} />
         <TouchableOpacity
@@ -266,8 +269,31 @@ const HomeScreen = ({ navigation, route }: any) => {
       </View>
 
       {<MenuPopup visible={isMenuVisible} onClose={() => setMenuVisible(false)} />}
+       <Modal
+        visible={showGif}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowGif(false)}
+      >
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        }}>
+          <Image
+            source={require('../assets/images/happy.png')} 
+            style={{ width: 200, height: 200 }}
+            resizeMode="contain"
+          />
+
+        </View>
+      </Modal>
     </View>
+    
   );
+ 
+
 };
 
 export default HomeScreen;
