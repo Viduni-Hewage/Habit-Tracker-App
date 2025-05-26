@@ -9,13 +9,13 @@ type SplashScreenProps = {
 
 const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.navigate('Welcome');
-    }, 4000);
+   useEffect(() => {
+     const timer = setTimeout(() => {
+       navigation.navigate('Welcome');
+     }, 4000);
 
-    return () => clearTimeout(timer);
-  }, [navigation]);
+     return () => clearTimeout(timer);
+   }, [navigation]);
 
   return (
     <SafeAreaView style={styles.splashSafeContainer}>

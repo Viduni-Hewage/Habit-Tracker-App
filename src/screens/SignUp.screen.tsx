@@ -9,6 +9,7 @@ import {
   Keyboard,
 } from 'react-native';
 import styles from '../styles/SignUp.styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUpScreen = ({ navigation }: any) => {
 
@@ -70,11 +71,16 @@ const SignUpScreen = ({ navigation }: any) => {
   const handleNavigateToSignin = () => {
     navigation.navigate('Signin');
   };
-  const handleSignUp = () => {
-    if (validateInputs()) {
-      navigation.navigate('Ad1');
+  const handleSignUp = async () => {
+  if (validateInputs()) {
+    try {
+      await AsyncStorage.setItem('isLoggedIn', 'true');
+      navigation.replace('Ad1');
+    } catch (e) {
+      console.error('Failed to save the user token:', e);
     }
-  };
+  }
+};
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -120,7 +126,6 @@ const SignUpScreen = ({ navigation }: any) => {
           style={styles.input}
           placeholder={passwordError || 'Enter your password'}
           placeholderTextColor={passwordError ? 'red' : '#999'}
-          secureTextEntry
           value={password}
           onChangeText={text => {
             setPassword(text);
@@ -132,7 +137,6 @@ const SignUpScreen = ({ navigation }: any) => {
           style={styles.input}
           placeholder={confirmPasswordError || 'Enter your password again'}
           placeholderTextColor={confirmPasswordError ? 'red' : '#999'}
-          secureTextEntry
           value={confirmPassword}
           onChangeText={text => {
             setConfirmPassword(text);

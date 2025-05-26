@@ -9,6 +9,7 @@ import {
   Keyboard,
 } from 'react-native';
 import styles from '../styles/SignIn.styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignInScreen = ({ navigation }: any) => {
   const [name, setName] = useState('');
@@ -58,11 +59,17 @@ const SignInScreen = ({ navigation }: any) => {
     const handleNavigateToSignup = () => {
         navigation.navigate('Signup');
     };
-    const handleSignin = () => {
-      if (validateInputs()) {
-        navigation.navigate('Home');
-      }
-    };
+    const handleSignin = async () => {
+  if (validateInputs()) {
+    try {
+      await AsyncStorage.setItem('isLoggedIn', 'true');
+      navigation.replace('Home');
+    } catch (e) {
+      console.error('Failed to retrieve user data:', e);
+    }
+  }
+};
+
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -109,7 +116,6 @@ const SignInScreen = ({ navigation }: any) => {
           style={styles.input}
           placeholder={passwordError || 'Enter your password'}
           placeholderTextColor={passwordError ? 'red' : '#999'}
-          secureTextEntry
           value={password}
           onChangeText={text => {
             setPassword(text);

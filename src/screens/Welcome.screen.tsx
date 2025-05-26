@@ -7,12 +7,28 @@ import {
   ImageBackground,
 } from 'react-native';
 import styles from '../styles/Welcome.styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type WelcomeScreenProps = {
   navigation: any;
 };
 
 const WelcomeScreen: React.FC<WelcomeScreenProps>  = ({navigation}) => {
+
+  const handleGetStarted = async () => {
+    try {
+      const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+      if (isLoggedIn === 'true') {
+        navigation.replace('Home');
+      } else {
+        navigation.replace('Signin');
+      }
+    } catch (error) {
+      console.error('Error checking login status:', error);
+      navigation.replace('Signin');
+    }
+  };
+
   return (
     <ImageBackground
       source={require('../assets/images/welcomeBg.png')}
@@ -41,7 +57,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps>  = ({navigation}) => {
 
         <View style={styles.welcomeButtonContainer}>
           <TouchableOpacity style={styles.getStartedButton}
-          onPress={() => navigation.navigate('Signin')}>
+          onPress={handleGetStarted}>
             <Text style={styles.welcomeButtonText}>GET STARTED   →</Text>
           </TouchableOpacity>
           <View style={styles.welcomeDivider} />
