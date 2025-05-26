@@ -144,31 +144,64 @@ separator: {
   color: '#999',
 },
 contentContainer: {
-  paddingBottom: 100,
+  marginBottom: 100,
 },
 noHabitText:{
   textAlign: 'center',
   marginTop: 20,
   color: '#999',
 },
-habitCard:{
+habitCard: {
   marginHorizontal: 20,
   marginBottom: 15,
-  padding: 15,
-  backgroundColor: '#F5F5F5',
+  padding: 2,
+  paddingTop: 8,
   borderRadius: 10,
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
 },
-habitName:{
+
+habitContent: {
+  flex: 1,
+},
+
+habitHeader: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+},
+
+habitName: {
   fontSize: 18,
   fontWeight: 'bold',
+  color: 'white',
 },
-habitFreq:{
+
+habitFreq: {
   fontSize: 14,
-  color: '#666',
+  color: 'white',
+  marginTop: 4,
 },
+
+line: {
+  height: 1,
+  backgroundColor: '#ccc',
+  marginVertical: 8,
+},
+
+buttonRow: {
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+},
+
+icon: {
+  width: 20,
+  height: 20,
+  tintColor: 'white', 
+},
+
+deleteBtn: {
+  marginLeft: 15,
+},
+
 
 });
 

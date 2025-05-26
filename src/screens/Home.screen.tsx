@@ -6,15 +6,16 @@ import {
   TouchableOpacity,
   FlatList,
   Pressable,
+  Image,
 } from 'react-native';
 import styles from '../styles/Home.styles';
 import CustomHeader from '../components/Header';
 import MenuPopup from '../components/Menu';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-//import LinearGradient from 'react-native-linear-gradient';
 import moment from 'moment';
 import CheckBox from '@react-native-community/checkbox';
 import { useFocusEffect } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 
 type WeekDay = {
   day: string;
@@ -22,6 +23,8 @@ type WeekDay = {
   fullDate: moment.Moment;
   isToday: boolean;
 };
+
+
 
 const HomeScreen = ({ navigation, route }: any) => {
   const [isMenuVisible, setMenuVisible] = useState(false);
@@ -50,8 +53,7 @@ const HomeScreen = ({ navigation, route }: any) => {
       if (selectedFilter === 'today') {
         if (habit.frequency === 'Daily') return true;
          if (habit.frequency === 'Weekly') {
-          return habit.day === todayWeekdayShort || 
-                habit.day?.toLowerCase() === todayWeekdayFull.toLowerCase();
+          return habit.day === todayWeekdayShort || habit.day?.toLowerCase() === todayWeekdayFull.toLowerCase();
         }
          if (habit.frequency === 'Other' && habit.customDate) {
           const habitDate = moment(habit.customDate).format('YYYY-MM-DD');
@@ -118,7 +120,25 @@ const HomeScreen = ({ navigation, route }: any) => {
     }
   };
 
-  // Dynamic title based on selected filter
+  const handleDelete = async (habitId: string) => {
+    try {
+      const updatedHabits = habits.filter(habit => habit.id !== habitId);
+
+      setHabits(updatedHabits);
+      await AsyncStorage.setItem('habits', JSON.stringify(updatedHabits));
+    } catch (error) {
+      console.error('Failed to delete habit:', error);
+    }
+  };
+
+  const handleEdit = (habitId: string) => {
+    const habitToEdit = habits.find(habit => habit.id === habitId);
+    if (habitToEdit) {
+      navigation.navigate('Edit', { habit: habitToEdit });
+
+    }
+  };
+
   const getScreenTitle = () => {
     switch (selectedFilter) {
       case 'all':
@@ -195,22 +215,41 @@ const HomeScreen = ({ navigation, route }: any) => {
           </Text>
         ) : (
           getFilteredHabits().map((habit) => (
-            <Pressable
+            <LinearGradient
               key={habit.id}
-              style={styles.habitCard}>
-              <View>
-                <Text style={styles.habitName}>{habit.name}</Text>
+              colors={['#9D74EF', '#FFC6A4']}
+              style={styles.habitCard}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            >
+            <Pressable key={habit.id} style={styles.habitCard}>
+              <View style={styles.habitContent}>
+                <View style={styles.habitHeader}>
+                  <Text style={styles.habitName}>{habit.name}</Text>
+                  <CheckBox
+                    value={habit.completedDates?.includes(moment().format('YYYY-MM-DD'))}
+                    onValueChange={() => toggleHabitCompleted(habit.id)}
+                    tintColors={{ true: 'white', false: '#aaa' }}
+                  />
+                </View>
+
                 <Text style={styles.habitFreq}>
-                  Frequency: {habit.frequency}{' '}
-                  {habit.frequency === 'weekly' ? `(${habit.day})` : ''}
+                  Frequency: {habit.frequency} {habit.frequency.toLowerCase() === 'weekly' ? `(${habit.day})` : ''}
                 </Text>
+
+                <View style={styles.line} />
+
+                <View style={styles.buttonRow}>
+                  <Pressable onPress={() => handleEdit(habit.id)}>
+                    <Image source={require('../assets/images/edit.png')} style={styles.icon} />
+                  </Pressable>
+                  <Pressable onPress={() => handleDelete(habit.id)} style={styles.deleteBtn}>
+                    <Image source={require('../assets/images/trash.png')} style={styles.icon} />
+                  </Pressable>
+                </View>
               </View>
-              <CheckBox
-                value={habit.completedDates?.includes(moment().format('YYYY-MM-DD'))}
-                onValueChange={() => toggleHabitCompleted(habit.id)}
-                tintColors={{ true: '#9D74EF', false: '#aaa' }}
-              />
             </Pressable>
+          </LinearGradient>
           ))
         )}
       </ScrollView>
