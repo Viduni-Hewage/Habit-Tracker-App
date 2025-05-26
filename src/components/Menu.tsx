@@ -99,14 +99,7 @@ const MenuPopup = ({ onClose, visible }: MenuPopupProps) => {
               resizeMode="contain"
           />
         </TouchableOpacity>
-        <View style={styles.headingRow}>
-          <Text style={styles.heading}>Hi..........</Text>
-          <Image
-            source={require('../assets/images/menuB.png')}
-            style={styles.wave}
-            resizeMode="contain"
-          />
-        </View>
+        <View style={styles.headingRow}></View>
         <TouchableOpacity
           onPress={() => handleNavigation('Home')}
           style={[
@@ -153,6 +146,21 @@ const MenuPopup = ({ onClose, visible }: MenuPopupProps) => {
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={() => handleNavigation('allHabits')}
+          style={[
+            styles.item,
+            selectedItem === 'allHabits' && styles.activeItem,
+          ]}
+        >
+          <Image
+            source={require('../assets/images/check-box.png')}
+            style={styles.icon}
+            resizeMode="contain"
+          />
+          <Text style={styles.itemText}>All Habits</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           onPress={() => handleNavigation('completedHabits')}
           style={[
             styles.item,
@@ -165,6 +173,21 @@ const MenuPopup = ({ onClose, visible }: MenuPopupProps) => {
             resizeMode="contain"
           />
           <Text style={styles.itemText}>Completed Habits</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => handleNavigation('Progress')}
+          style={[
+            styles.item,
+            selectedItem === 'Progress' && styles.activeItem,
+          ]}
+        >
+          <Image
+            source={require('../assets/images/progress.png')}
+            style={styles.icon}
+            resizeMode="contain"
+          />
+          <Text style={styles.itemText}>Progress</Text>
         </TouchableOpacity>
 
         <View style={styles.signOutContainer}>

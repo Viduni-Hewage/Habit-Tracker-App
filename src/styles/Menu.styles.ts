@@ -2,7 +2,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 import { StyleSheet, Dimensions } from 'react-native';
 
-const { width } = Dimensions.get('window');
+const { width,height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   backdrop: {
@@ -19,8 +19,8 @@ export const styles = StyleSheet.create({
     top: 0,
     right: 0,
     width: width * 0.7,
-    height: '100%',
-    backgroundColor: '#1E8BC6',
+    height: height * 1,
+    backgroundColor: '#9D74EF',
     zIndex: 2,
   },
   heading: {
@@ -32,11 +32,10 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     width: wp('100%'),
     padding:wp('5%'),
-    paddingLeft: wp('8%'),
-    borderWidth: 0.6,
-    borderColor: 'white',
+    paddingLeft: wp('9%'),
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: hp('1%'),
   },
   activeItem: {
     backgroundColor: '#cde5ff',
@@ -49,7 +48,7 @@ export const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
-    marginRight: wp('9%'),
+    marginRight: wp('8%'),
     marginLeft: -1,
   },
   closeButtonTop: {
@@ -89,7 +88,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: hp('8%'),
-    marginTop: hp('17%'),
+    marginTop: hp('12%'),
     paddingLeft: wp('10%'),
   },
   wave: {
